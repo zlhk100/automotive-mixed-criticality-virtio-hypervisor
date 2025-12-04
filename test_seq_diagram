@@ -1,0 +1,20 @@
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Browser
+    participant Server
+    participant Database
+
+    Browser->>Server: Request Login Page
+    Server-->>Browser: Send Login Form
+    
+    Browser->>Server: Submit Credentials (User/Pass)
+    Server->>Database: Query User Hash
+    Database-->>Server: Return User Hash & Salt
+
+    alt Successful Login
+        Server->>Server: Verify Password Hash
+        Server-->>Browser: Session Token
+    else Failed Login
+        Server-->>Browser: Show Error Message
+    end
